@@ -20,8 +20,14 @@ io.on('connection', (socket) => {
       // socket.on for close
       // delete this 
       socket.on('hello', function (data) {
-        var num = eval(data.val)
+        try{
+        var num = eval(data.val);
         io.sockets.in(data.name).emit('helloRep', {val:num });
+        }
+        catch{
+        io.sockets.in(data.name).emit('helloRep', {val:"Error"});
+        }
+        
       });
       
     //socket.on('funk')
