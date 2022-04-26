@@ -11,7 +11,7 @@ server.listen(port, () => {
 });
 io.on('connection', (socket) => {
     console.log('a user connected');
-    console.log(socket.id);
+   // console.log(socket.id);
     socket.on('join', function (data) {
         socket.join(data.name);
         // you check if the name was created before, if it was you acess the text file, if not you create new text file for that name
@@ -29,13 +29,15 @@ io.on('connection', (socket) => {
         }
         
       });
-      
+      socket.on('exit', function (data){
+        console.log(data.name + " has exited");
+      });
     //socket.on('funk')
     // you get a arifunc in data, you tokenize that function and run and send the ans back to client, you have to log on that specific client name text file
     // exit, search up how to force close client connection in socket.io
     //socket.on('exit')
     socket.on('disconnect', () => {
-      console.log('user disconnected');
+      //console.log('user disconnected');
     });
   });
   // text file, you just log the arthimetic function into a text file, with the name and function asked. One folder and 

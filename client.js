@@ -23,6 +23,7 @@ var name1 = readlineSync.question('May I have your name? ');
       if(d.toString().toLowerCase().trim() === "exit")
       {
         socket.emit('exit', {name: n1});
+        console.log("You have exited\n");
         process.exit(1);
       }
       else
