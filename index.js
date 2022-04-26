@@ -20,8 +20,10 @@ io.on('connection', (socket) => {
       // socket.on for close
       // delete this 
       socket.on('hello', function (data) {
-        io.sockets.in(data.name).emit('helloRep', {val:data.val });
+        var num = eval(data.val)
+        io.sockets.in(data.name).emit('helloRep', {val:num });
       });
+      
     //socket.on('funk')
     // you get a arifunc in data, you tokenize that function and run and send the ans back to client, you have to log on that specific client name text file
     // exit, search up how to force close client connection in socket.io

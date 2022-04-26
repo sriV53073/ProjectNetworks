@@ -1,16 +1,29 @@
 const io = require('socket.io-client');
+var readlineSync = require('readline-sync');
 const socket = io.connect('http://localhost:1337/');
-//get the user input
-socket.emit('join', {name: "SriSai"});// I used tested the value, change to user input for name
-socket.emit('hello', {val: "hiBro", name:"SriSai"});//delete
 socket.on('connect', () => {
-  console.log('Successfully connected!');
+  console.log('Successfully connected!\n');
+  console.log("Enter the function you want to be sent over")
   // delete the function below
   socket.on('helloRep', function (data) {
-    console.log(data.val)// We are using room of socket io
+    console.log("Value Of Function is " + data.val)// We are using room of socket io
+    console.log("Enter the function you want to be sent over")
   });
   // add a function where you socket.on('answer') console.log(data.answer)
 });
+var name1 = readlineSync.question('May I have your name? ');
+  console.log(`Hi ${name1}!`)
+  n1 = name1;
+  socket.emit('join', {name: name1});
+  var stdin = process.openStdin();
+  stdin.addListener("data", function(d) {
+      // note:  d is an object, and when converted to a string it will
+      // end with a linefeed.  so we (rather crudely) account for that  
+      // with toString() and then trim() 
+      socket.emit('hello', {val: d.toString().trim(), name:n1});
+    });
+
+
 // While( true)
 // get the user input for the artithimetic function
 //socket.emit('func',{val:arithfunc});
@@ -18,4 +31,4 @@ socket.on('connect', () => {
 //socket.emit'exit'
 //exit while and close
 //Exit while
-socket.emit('hello', {val: "hiBro392842389", name:"SriSai"});//delete
+//delete
