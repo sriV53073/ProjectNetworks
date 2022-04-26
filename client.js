@@ -20,7 +20,15 @@ var name1 = readlineSync.question('May I have your name? ');
       // note:  d is an object, and when converted to a string it will
       // end with a linefeed.  so we (rather crudely) account for that  
       // with toString() and then trim() 
-      socket.emit('hello', {val: d.toString().trim(), name:n1});
+      if(d.toString().toLowerCase().trim() === "exit")
+      {
+        socket.emit('exit', {name: n1});
+        process.exit(1);
+      }
+      else
+      {
+        socket.emit('hello', {val: d.toString().trim(), name:n1});
+      }
     });
 
 
