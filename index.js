@@ -10,6 +10,7 @@ server.listen(port, () => {
 });
 io.on('connection', (socket) => {
     console.log('a user connected');
+    console.time(data.name +"'s session lasted for")
    // console.log(socket.id);
     socket.on('join', function (data) {
       try { // Create files directory if not exists
@@ -46,6 +47,7 @@ io.on('connection', (socket) => {
       });
       socket.on('exit', function (data){
         console.log(data.name + " has exited");
+        console.timeEnd(data.name +"'s session lasted for");
         (async () => {
           await fs.appendFile(data.name+".txt", data.name + " has exited\n", 'utf8');
         })();
