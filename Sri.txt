@@ -7,3 +7,13 @@ Sri is logged in
 Sri is logged in
 3+3
 Sri has exited
+Sri is logged in
+1 +2
+Sri is logged in
+2+2
+5+5*2
+Sri is logged in
+1+2
+2*2+2
+fnioerfer
+Sri has exited after a session lasting 22437 milliseconds.
