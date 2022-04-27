@@ -9,6 +9,7 @@ server.listen(port, () => {
     console.log(`Listening on ${port}`);
 });
 io.on('connection', (socket) => {
+  var timetracker = Date.now();
     console.log('a user connected');
    // console.log(socket.id);
     socket.on('join', function (data) {
@@ -45,9 +46,10 @@ io.on('connection', (socket) => {
         
       });
       socket.on('exit', function (data){
-        console.log(data.name + " has exited");
+        timetracker = Date.now() - timetracker;
+        console.log(data.name + " has exited after a session lasting "+timetracker+" milliseconds.");
         (async () => {
-          await fs.appendFile(data.name+".txt", data.name + " has exited\n", 'utf8');
+          await fs.appendFile(data.name+".txt", data.name + " has exited after a session lasting "+timetracker+" milliseconds.\n", 'utf8');
         })();
       });
     //socket.on('funk')
