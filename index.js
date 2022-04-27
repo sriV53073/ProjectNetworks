@@ -10,18 +10,10 @@ server.listen(port, () => {
 });
 io.on('connection', (socket) => {
   var timetracker = Date.now();
-    console.log('a user connected');
-   // console.log(socket.id);
+    console.log("A user has connected.");
     socket.on('join', function (data) {
       try { // Create files directory if not exists
-        if (!fd.existsSync(data.name+".txt"))
-        {
-         fs.appendFile(data.name+".txt", data.name + " is logged in\n", 'utf8');
-        }
-        else
-        {
-          fs.appendFile(data.name+".txt", data.name + " is logged in\n", 'utf8');
-        }
+        fs.appendFile(data.name+".txt", data.name + " has connected. \n", 'utf8');
       } catch (e) {
         console.log.error("error:" + e)
       }
