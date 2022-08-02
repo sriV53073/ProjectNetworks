@@ -1,8 +1,18 @@
 //the imports
+var cors = require('cors');
+const path = require('path');
 const express = require('express');
 const app = express();
+const { readdir } = require('fs/promises');
+app.use(cors());
 const server = require('http').Server(app);
-const io = require('socket.io')(server);
+const io = require('socket.io')(server, {
+  cors: {
+    origin: '*',
+  }
+});
+//io.set('origins', 'http://localhost:3000/');
+//io.origins('*:*');
 const fd =  require('fs');
 const fs = require('fs').promises;
 const port = process.env.PORT || 1337;
@@ -40,6 +50,27 @@ io.on('connection', (socket) => {
       //creates a private room between the client and the server
         socket.join(data.name);
       });
+      app.get('/log', (req, res) => {
+        res.download(path.resolve(`./${req.query.name}.txt`));
+      })
+      socket.on('logs', async function(data){
+        console.log(data.name);
+        const matchedFiles = [];
+
+    const files = await readdir("./");
+   // console.log(files);
+    for (const file of files) {
+        // Method 1:
+        const filename = path.parse(file).name;
+        console.log(filename);
+        if (filename === data.name) {
+            matchedFiles.push(file);
+        }
+
+    }
+    console.log(matchedFiles);
+    io.sockets.in(data.name).emit('logReturn', {val:matchedFiles});
+      })
 
       //When it's working get the name
       socket.on('hello', function (data) {

@@ -1,0 +1,8 @@
+"Guest123" is logged in
+"Guest123" is logged in
+1-1
+33+2
+45*5
+"Guest123" is logged in
+"Guest123" is logged in
+"Guest123" has exited after a session lasting 55674 milliseconds.
