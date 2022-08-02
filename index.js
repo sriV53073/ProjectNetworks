@@ -53,6 +53,9 @@ io.on('connection', (socket) => {
       app.get('/log', (req, res) => {
         res.download(path.resolve(`./${req.query.name}.txt`));
       })
+      app.get('/', (req, res) => {
+        res.send("Hello");
+      })
       socket.on('logs', async function(data){
         console.log(data.name);
         const matchedFiles = [];
