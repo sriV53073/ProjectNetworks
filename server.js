@@ -22,7 +22,10 @@ const port = process.env.PORT || 1337;
 server.listen(port, () => {
     console.log(`Listening on ${port}`);
 });
-
+app.get('/', function (req, res) {
+  res.send('GET request to the homepage1')
+  console.log("Hello");
+})
 //When connected to a client
 io.on('connection', (socket) => {
   //Get the starting time, and log the user as connected
@@ -53,9 +56,6 @@ io.on('connection', (socket) => {
       });
       app.get('/log', (req, res) => {
         res.download(path.resolve(`./${req.query.name}.txt`));
-      })
-      app.get('/', (req, res) => {
-        res.send("Hello");
       })
       socket.on('logs', async function(data){
         console.log(data.name);
